@@ -1,7 +1,16 @@
 [project]
-name = "advent-of-code-2025"
+name = "aoc"
 version = "0.1.0"
 description = "Adevent of Code"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = []
+
+[build-system]
+requires = ["uv_build>=0.9.14,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+]
