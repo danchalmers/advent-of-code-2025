@@ -45,15 +45,14 @@ def make_move(move_line: str, start: int) -> Position:
 def make_move_through_zero(move_line: str, start: int) -> tuple[Position, Count]:
     direction = move_line[0]
     move = int(move_line[1:])
-    step = 1 if direction == "R" else -1
-    count = 0
-    new_pos = start
-    for i in range(move):
-        new_pos += step
-        new_pos %= 100
-        if new_pos == 0:
-            count += 1
-    return new_pos, count
+    direction = 1 if direction == "R" else -1
+    if direction == -1 and start == 0:
+        start = 100
+    quotient, remainder = divmod(start + (move * direction), 100)
+    count = abs(quotient)
+    if direction == -1 and remainder == 0:
+        count += 1
+    return remainder, count
 
 
 if __name__ == "__main__":
