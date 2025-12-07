@@ -10,14 +10,38 @@ THRESHOLD = 4
 def part1_count_accessible(input: str) -> int:
     layout, max_row, max_col = format_layout(input)
     accessibles = [
-        is_accessible(layout, max_row, max_col, r, c)
+        (r, c)
         for r in range(max_row + 1)
         for c in range(max_col + 1)
+        if is_accessible(layout, max_row, max_col, r, c)
     ]
-    return sum(accessibles)
+    return len(accessibles)
 
 
-def is_accessible(layout: LayoutCells, max_row: Row, max_col: Col, row: Row, col: Col) -> bool:
+def part2_count_accessible(input: str) -> int:
+    layout, max_row, max_col = format_layout(input)
+    return _part2_count_accessible(layout, max_row, max_col, 0)
+
+
+def _part2_count_accessible(layout: LayoutCells, max_row: Row, max_col: Col, prev_count: int) -> int:
+    accessibles = [
+        (r, c)
+        for r in range(max_row + 1)
+        for c in range(max_col + 1)
+        if is_accessible(layout, max_row, max_col, r, c)
+    ]
+    if len(accessibles) == 0:
+        return prev_count
+    for a in accessibles:
+        layout[a[0]][a[1]] = '.'
+    return _part2_count_accessible(layout, max_row, max_col, prev_count + len(accessibles))
+
+
+def is_accessible(
+        layout: LayoutCells,
+        max_row: Row, max_col: Col,
+        row: Row, col: Col
+) -> bool:
     adjacents = adjacent(row, col, max_row, max_col)
     value = layout[row][col]
     if value != '@':
@@ -47,3 +71,5 @@ if __name__ == "__main__":
         layout = f.read()
         count_accessible = part1_count_accessible(layout)
         print(f"Part 1: {count_accessible}")
+        count_accessible = part2_count_accessible(layout)
+        print(f"Part 2: {count_accessible}")

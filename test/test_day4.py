@@ -1,6 +1,6 @@
 import pytest
 
-from aoc.day4 import adjacent, format_layout, is_accessible, part1_count_accessible
+from aoc.day4 import adjacent, format_layout, is_accessible, part1_count_accessible, part2_count_accessible
 
 EXAMPLE = """..@@.@@@@.
 @@@.@.@.@@
@@ -82,6 +82,11 @@ def test_accessible_row9_col9():
 def test_part1_count_accessible():
     result = part1_count_accessible(EXAMPLE)
     assert result == 13
+
+
+def test_part2_count_accessible():
+    result = part2_count_accessible(EXAMPLE)
+    assert result == 43
 
 
 def test_adjacent_zero_corner():
