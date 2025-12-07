@@ -25,7 +25,6 @@ def biggest_sequence(bank: str, how_many: int) -> int:
     return int("".join([str(v) for v in vals]))
 
 
-
 def _max_from_to(bank: list[int], start: int, end: int) -> tuple[int, int]:
     max_val = 0
     max_idx = 0

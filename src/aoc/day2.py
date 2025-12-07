@@ -52,9 +52,6 @@ def is_pattern_part_2(product_id: int) -> bool:
     return repeating
 
 
-
-
-
 if __name__ == "__main__":
     with open("data/day2.txt") as f:
         input_str = f.read()
